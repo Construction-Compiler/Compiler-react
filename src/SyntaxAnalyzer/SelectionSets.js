@@ -48,10 +48,13 @@ export const INIT_VALUE=["[",".","this","DT","if","for","while","do","const","re
 export const OTHER_VALUE=[".","("]
 export const AFT_VALUE=[".","(","["]
 
+export const CALLING_PARAM1=["ID","(","!","inc_dec","float","int","string","this","[",")"]
+export const CP_VAL1=["ID","(","!","inc_dec","float","int","string","this","[","("]
+export const NEXT_CP1=["{",")"]
 export const NEXT_DEC_PARAMS=["DT","ID"]
 export const NEXT_PARAM=[",",")"]
 export const CONST_DEC=["AOP",")"]
-export const DEC_PARAMS=["ID","DT",")"]
+export const DEC_PARAMS1=["ID","DT",")"]
 export const BODY=["{",";","}"]
 
 

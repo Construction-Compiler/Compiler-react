@@ -1,6 +1,6 @@
-import {Start1, Start11, Start_1, Start_11, O_AM_S1, O_AM_S2, O_AM_S3, AM1, AM2, O_S1, DEFS1, DEFS2,
+import {Start1, Start11, Start_1, Start_11, O_AM_S1, O_AM_S2, O_AM_S3, AM1, AM2, O_S1, DEFS1, DEFS2,CALLING_PARAM1, CP_VAL1,NEXT_CP1,
 DEFS3, MST1, MST2, SST_1, O_ELSE, FOR_PARAM1, C_1, C_2, C_3, ARRAY, ARR_VALS, ARR_VAL, ARR2, NEXT_VAL, OBJ, PROP, OBJ1, NEXT_PROP, INC_DEC, INIT_2, INIT_VALUE, OTHER_VALUE, AFT_VALUE,
- DEC_PARAMS,SSTNEXT1, NEXT_PARAM, CONST_DEC,BODY, THIS_VAR, CLASS_BODY, CLASS_BODY1, CLASS_ST, CONSTRUCTOR_BODY, CONSTRUCTOR_BODY1, CLASS_CONSTRUCTOR, CLASS_MST, CLASS_MST1, CLASS_MST2, func_dec, func_dec1, find, E1, DEC_3, DEC_1, INIT_VAL, EXP12, EXP11, CONST }  from './SelectionSets'
+ DEC_PARAMS1,SSTNEXT1, NEXT_PARAM, CONST_DEC,BODY, THIS_VAR, CLASS_BODY, CLASS_BODY1, CLASS_ST, CONSTRUCTOR_BODY, CONSTRUCTOR_BODY1, CLASS_CONSTRUCTOR, CLASS_MST, CLASS_MST1, CLASS_MST2, func_dec, func_dec1, find, E1, DEC_3, DEC_1, INIT_VAL, EXP12, EXP11, CONST }  from './SelectionSets'
 // import { createTemp,createLabel, Output } from "../ICG/ICGfunctions";
 
 var i,t,syntax=true,inFuncP=false
@@ -268,12 +268,12 @@ function CLASS_OBJ(){
                     i++
                     if(t[i].CP==="(")
                     i++
-                    // if(CALL_PARA()){
-                    //     if(t[i].CP===")"){
-                    //         i++
-                    //         return true
-                    //     }
-                    // }
+                     if(CALLING_PARAM()){
+                        if(t[i].CP===")"){
+                            i++
+                            return true
+                        }
+                    }
                 }
             }
         }
@@ -948,17 +948,57 @@ function other_value(){
         }
         else if(t[i].CP==="("){
             i++
-            // if(CALL_PARAM()){
-            //     if(t[i].CP===")"){
-            //         i++
-            //         if(AFT_VALUE()){
-            //             return true
-            //         }
-            //     }
-            // }
+            if(CALLING_PARAM()){
+                if(t[i].CP===")"){
+                    i++
+                    if(AFT_VAL()){
+                        return true
+                    }
+                }
+            }
         }
         return false
 }
+//===============CALLING PARAM
+function CALLING_PARAM(){
+   
+    if(t[i].CP===")"){
+       
+        return true
+    }
+    else if(find(CALLING_PARAM1,t[i].CP)){
+        if(CP_VAL()){
+            return true
+        }
+    }
+    return false
+}
+function CP_VAL(){
+    if(find(CP_VAL1,t[i].CP)){
+        
+        if(INIT_VAL2()){
+           
+            if(NEXT_CP()){
+                return true
+            }
+        }
+    }
+    return false
+}
+function NEXT_CP(){
+    if(t[i].CP===")"){
+        return true
+    }
+    else if(t[i].CP===","){
+        i++
+       
+        if(CP_VAL()){
+            return true
+        }
+    }
+    return false
+}
+//=================END CALLING PARAM
 
 
 function AFT_VAL(){
@@ -1087,7 +1127,7 @@ const DEC1 = () =>{
 }
 
 // DEC-PARAMS START
-function dec_params(){
+function DEC_PARAMS(){
     if(t[i].CP==="DT"){
         
         i++
@@ -1108,7 +1148,7 @@ function dec_params(){
                 return true
             }
         }
-    } else if(find(DEC_PARAMS , t[i].CP )){
+    } else if(find(DEC_PARAMS1 , t[i].CP )){
         return true
     }
     
@@ -1159,6 +1199,17 @@ function NEXT_DEC_P(){
             }
         }
     } 
+     else if(t[i].CP==="ID"){
+    i++ 
+    if(Const_Dec()){
+        if(Next_Param()){
+            return true
+        }
+    }
+    } //else if(find(DEC_PARAMS1 , t[i].CP )){
+   // return true
+
+    return false
 }
 
 // DEC_PARAMS END
